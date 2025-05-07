@@ -1,3 +1,6 @@
+# Each section is split according to the respective cells in the notebook provided by freeCodeCamp
+
+# Cell 1
 import tensorflow as tf
 
 from tensorflow.keras.models import Sequential
@@ -12,19 +15,17 @@ import os
 import zipfile
 import requests
 
-# Download the zip file
+# Cell 2 
+# Get project files
 url = 'https://cdn.freecodecamp.org/project-data/cats-and-dogs/cats_and_dogs.zip'
 response = requests.get(url)
 
-# Save the zip file locally
 with open('cats_and_dogs.zip', 'wb') as file:
     file.write(response.content)
 
-# Unzip the file
 with zipfile.ZipFile('cats_and_dogs.zip', 'r') as zip_ref:
     zip_ref.extractall()
 
-# Define the directory paths
 PATH = 'cats_and_dogs'
 
 train_dir = os.path.join(PATH, 'train')
@@ -32,6 +33,7 @@ validation_dir = os.path.join(PATH, 'validation')
 test_dir = os.path.join(PATH, 'test')
 
 # Get the number of files in each directory
+# Each have the subdirectories "dogs" and "cats".
 total_train = sum([len(files) for r, d, files in os.walk(train_dir)])
 total_val = sum([len(files) for r, d, files in os.walk(validation_dir)])
 total_test = len(os.listdir(test_dir))
@@ -42,7 +44,7 @@ epochs = 15
 IMG_HEIGHT = 150
 IMG_WIDTH = 150
 
-# 3
+# Cell 3
 train_image_generator = ImageDataGenerator(rescale=1./255)
 validation_image_generator = ImageDataGenerator(rescale=1./255)
 test_image_generator = ImageDataGenerator(rescale=1./255)
@@ -50,6 +52,9 @@ test_image_generator = ImageDataGenerator(rescale=1./255)
 train_data_gen = train_image_generator.flow_from_directory(train_dir, batch_size=batch_size, target_size=(IMG_HEIGHT, IMG_WIDTH), class_mode='binary')
 val_data_gen = validation_image_generator.flow_from_directory(validation_dir, batch_size=batch_size, target_size=(IMG_HEIGHT, IMG_WIDTH), class_mode='binary')
 
+# flow_from_directory expects subdirectories for each class
+# From looking at the directory structure, we see that the test data is not in subdirectories
+# So, we will create a subdirectory called "unknown" (if it doesn't already exist) and move all the test images into it
 test_subdir = os.path.join(test_dir, 'unknown')
 if not os.path.exists(test_subdir):
     os.makedirs(test_subdir)
