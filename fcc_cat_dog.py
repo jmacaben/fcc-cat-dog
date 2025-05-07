@@ -84,3 +84,18 @@ def plotImages(images_arr, probabilities = False):
 
 sample_training_images, _ = next(train_data_gen)
 plotImages(sample_training_images[:5])
+
+# Cell 5
+# Add 4-6 random transformations as arguments to ImageDataGenerator
+# Include rescaling the same as before
+train_image_generator = ImageDataGenerator(rescale=1./255, rotation_range=40, width_shift_range=0.2, height_shift_range=0.2, zoom_range=0.2, horizontal_flip=True)
+
+# Cell 6 (given)
+train_data_gen = train_image_generator.flow_from_directory(batch_size=batch_size,
+                                                     directory=train_dir,
+                                                     target_size=(IMG_HEIGHT, IMG_WIDTH),
+                                                     class_mode='binary')
+
+augmented_images = [train_data_gen[0][0][0] for i in range(5)]
+
+plotImages(augmented_images)
