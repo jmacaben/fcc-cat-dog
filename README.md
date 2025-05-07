@@ -1,3 +1,3 @@
-# Cat and Dog Image Classifier
+# Cat and Dog Image Classifier (WIP)
 
 Project from freeCodeCamp's "Machine Learning with Python"
