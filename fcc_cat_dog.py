@@ -1,6 +1,7 @@
 # Each section is split according to the respective cells in the notebook provided by freeCodeCamp
+# Some of the given code may have been changed for use outside of a notebook environment
 
-# Cell 1
+# Cell 1 (given)
 import tensorflow as tf
 
 from tensorflow.keras.models import Sequential
@@ -11,11 +12,10 @@ import os
 import numpy as np
 import matplotlib.pyplot as plt
 
-import os
 import zipfile
 import requests
 
-# Cell 2 
+# Cell 2 (given)
 # Get project files
 url = 'https://cdn.freecodecamp.org/project-data/cats-and-dogs/cats_and_dogs.zip'
 response = requests.get(url)
@@ -65,4 +65,22 @@ if not os.path.exists(test_subdir):
 
 test_data_gen = test_image_generator.flow_from_directory(test_dir, batch_size=1, target_size=(IMG_HEIGHT, IMG_WIDTH), class_mode=None, shuffle=False)
 
+# Cell 4 (given)
+def plotImages(images_arr, probabilities = False):
+    fig, axes = plt.subplots(len(images_arr), 1, figsize=(5,len(images_arr) * 3))
+    if probabilities is False:
+      for img, ax in zip( images_arr, axes):
+          ax.imshow(img)
+          ax.axis('off')
+    else:
+      for img, probability, ax in zip( images_arr, probabilities, axes):
+          ax.imshow(img)
+          ax.axis('off')
+          if probability > 0.5:
+              ax.set_title("%.2f" % (probability*100) + "%% dog")
+          else:
+              ax.set_title("%.2f" % ((1-probability)*100) + "%% cat")
+    plt.show()
 
+sample_training_images, _ = next(train_data_gen)
+plotImages(sample_training_images[:5])
