@@ -168,10 +168,11 @@ plt.title('Training and Validation Loss')
 plt.show()
 
 # Cell 10
-# Get probabilities from the model
+# Get the probability that each test image (from test_data_gen) is a dog or a cay
+# Probabilities should be a list of integers
 probabilities = model.predict(test_data_gen).flatten().tolist()
 
-# Get test images (for display only, optional)
+# Get test images (for display)
 test_images = [test_data_gen[i][0][0] for i in range(len(probabilities))]
 
 # Plot images with model predictions
@@ -200,3 +201,5 @@ if passed_challenge:
   print("You passed the challenge!")
 else:
   print("You haven't passed yet. Your model should identify at least 63%% of the images. Keep trying. You will get it!")
+
+# Output: Your model correctly identified 64.0% of the images of cats and dogs. You passed the challenge!
