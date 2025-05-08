@@ -15,7 +15,7 @@ A simple image classification project built with TensorFlow and Keras that train
 
 ## 🤔 What I Learned
 
-Throughout the development of this project, I encountered several practical challenges that deepened my understanding of machine learning workflows:
+Throughout the development of this project, I encountered several practical challenges:
 
 - **Directory structure issues**: Since `flow_from_directory` expects subdirectories for each class, I had to manually create an `unknown` subdirectory inside `test` and move all test images into it. 
 - **Model architecture adjustments**: My first few training attempts hovered around ~50% accuracy. To improve this, I experimented with the transformations in `ImageDataGenerator` and also added an extra Conv2D/MaxPooling layer, which led to noticeable improvements.
